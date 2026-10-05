@@ -1,0 +1,20 @@
+name: Build APK
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+      - run: pip install -r requirements.txt
+      - run: flet pack main.py --android --no-rich-output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: dist/*.apk
