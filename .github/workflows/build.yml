@@ -18,13 +18,12 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: '3.24.5'
       - name: Install Flet
         run: pip install flet==1.0.3 pillow
       - name: Accept licenses
         run: yes | flutter doctor --android-licenses
       - name: Build APK
-        run: flet build apk --verbose
+        run: echo y | flet build apk --verbose
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
