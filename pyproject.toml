@@ -1,11 +1,7 @@
 [project]
 name = "offline-tracker"
 version = "1.0.0"
-description = "offline tracker"
+dependencies = ["flet==1.0.3", "pillow"]
 requires-python = ">=3.11"
-dependencies = [
-  "flet==0.28.0",
-  "pillow"
-]
 
 [tool.flet]
