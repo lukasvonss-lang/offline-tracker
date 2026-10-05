@@ -1,0 +1,6 @@
+[project]
+name = "offline-tracker"
+version = "1.0.0"
+dependencies = ["flet", "pillow"]
+
+[tool.flet]
