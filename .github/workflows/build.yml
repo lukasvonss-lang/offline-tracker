@@ -16,9 +16,12 @@ jobs:
         with:
           channel: stable
           flutter-version: '3.35.7'
-      - run: flutter --version
-      - run: pip install flet
-      - run: echo y | flet build apk --verbose
+      - run: flutter doctor --android-licenses
+        env:
+          JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.8-9.0.LTS/x64
+      - run: yes | flutter doctor --android-licenses || true
+      - run: pip install flet==1.0.3
+      - run: flet build apk --verbose
       - uses: actions/upload-artifact@v4
         with:
           name: apk
