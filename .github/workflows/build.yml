@@ -5,16 +5,34 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - uses: subosito/flutter-action@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.22.0'
-      - run: pip install -r requirements.txt
-      - run: flet pack main.py --android --no-rich-output
-      - uses: actions/upload-artifact@v4
+          channel: stable
+          flutter-version: '3.22.2'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install flet pillow
+          flutter doctor
+
+      - name: Build APK
+        run: |
+          flet pack main.py --android
+          ls -R dist/
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: dist/*.apk
+          path: dist/**/*.apk
+          if-no-files-found: error
